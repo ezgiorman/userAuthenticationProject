@@ -18,7 +18,7 @@ public class mongoDBconnection {
     }
 
     public static void close() {
-        mongoClient.close(); // Bağlantıyı kapat
+        mongoClient.close();
         System.out.println("MongoDB connection is over.");
     }
 }

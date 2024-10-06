@@ -3,16 +3,27 @@ package org.example;
 public class PasswordValidator {
 
     public static boolean isValidPassword(String password) {
-
-        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-        return password.matches(passwordPattern);
-    }
-
-    public static String validatePassword(String password) {
-        if (!isValidPassword(password)) {
-            return "Weak Password! \n" +
-                    "The password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one number and one special character.";
+        if (password.length() < 8) {
+            return false;
         }
-        return "Strong password!";
+
+        boolean hasUppercase = false;
+        boolean hasLowercase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUppercase = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowercase = true;
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (!Character.isLetterOrDigit(c)) {
+                hasSpecialChar = true;
+            }
+        }
+
+        return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
     }
 }
